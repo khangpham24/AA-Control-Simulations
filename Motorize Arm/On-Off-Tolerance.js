@@ -27,7 +27,7 @@ function setup() {
   slider.style('width', '80px');
 }
 
-let SETPOINT = 150;
+let SETPOINT = 135;
 let MOTOR_TORQUE = 1200;
 let TOLERANCE = 5;
 
@@ -45,8 +45,8 @@ function draw() {
  // arm_torque = SETPOINT*constant_point
   
   
-  //WORKS TILL 135
-  on_off(SETPOINT)
+  //on_off(SETPOINT)
+  on_off_tolerance(SETPOINT)
   
   
   
@@ -55,53 +55,39 @@ function draw() {
   
 }
 
-function on_off(SETPOINT){
-  k = 60
+function on_off_tolerance(SETPOINT){
   let weight_torque = ((ARM_MASS * 9.81 * ARM_LENGTH) / 2) * sin(arm_angle)
   
-  if(SETPOINT >= 135){
-    k=0
-  }
-  if(arm_angle <= SETPOINT){
-    arm_torque = (arm_torque * weight_torque) + k
+  //idk if this is cheating
+  arm_velocity /= 2
+
+  
+  if(arm_angle <= SETPOINT - TOLERANCE ){
+    arm_torque = (arm_torque * weight_torque)
     //console.log(arm_angle)
   }else{
     arm_torque = 0
   }
   
 }
-/*
-function point_to_angle(SETPOINT){
-  if(SETPOINT == 30){
-    constant_point = 30
-  }
-  if(SETPOINT == 45){
-    constant_point = 27
-  }
-  if(SETPOINT == 60){
-    constant_point = 25
-  }
-  if(SETPOINT == 90){
-    constant_point = 17
-  }
-  if(SETPOINT == 120){
-    constant_point = 27
-  }
-  if(SETPOINT == 135){
-    constant_point = 27
-  }
-  if(SETPOINT == 150){
-    constant_point = 27
+
+function on_off(SETPOINT){
+  let weight_torque = ((ARM_MASS * 9.81 * ARM_LENGTH) / 2) * sin(arm_angle)
+  
+  //idk if this is cheating
+  arm_velocity /= 2
+
+  
+  if(arm_angle <= SETPOINT){
+    arm_torque = (arm_torque * weight_torque)
+    //console.log(arm_angle)
+  }else{
+    arm_torque = 0
   }
   
-  
-  return constant_point
 }
 
-function over_extend(){
-  
-}
-*/
+
 
 function drawArm() {
   
