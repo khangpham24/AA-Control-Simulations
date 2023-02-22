@@ -46,6 +46,7 @@ function draw() {
   
   
   on_off(SETPOINT)
+  //on_off_tolerance(SETPOINT)
   
   
   
@@ -54,8 +55,26 @@ function draw() {
   
 }
 
+function on_off_tolerance(SETPOINT){
+  let weight_torque = ((ARM_MASS * 9.81 * ARM_LENGTH) / 2) * sin(arm_angle)
+  
+  //idk if this is cheating
+  arm_velocity /= 2
+
+  
+  if(arm_angle <= SETPOINT - TOLERANCE ){
+    arm_torque = (arm_torque * weight_torque)
+    //console.log(arm_angle)
+  }else{
+    arm_torque = 0
+  }
+  
+}
+
 function on_off(SETPOINT){
   let weight_torque = ((ARM_MASS * 9.81 * ARM_LENGTH) / 2) * sin(arm_angle)
+  
+  //idk if this is cheating
   arm_velocity /= 2
 
   
