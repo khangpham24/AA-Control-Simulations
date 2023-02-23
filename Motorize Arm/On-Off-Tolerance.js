@@ -27,7 +27,7 @@ function setup() {
   slider.style('width', '80px');
 }
 
-let SETPOINT = 135;
+let SETPOINT = 90;
 let MOTOR_TORQUE = 1200;
 let TOLERANCE = 5;
 
@@ -47,6 +47,9 @@ function draw() {
   
   //on_off(SETPOINT)
   on_off_tolerance(SETPOINT)
+  //proportional_control(SETPOINT)
+  //proportional_Integral_control(SETPOINT)
+  
   
   
   
@@ -55,11 +58,41 @@ function draw() {
   
 }
 
+function proportional_Integral_control(SETPOINT){
+  let k = 500
+  let accum_error = 0
+  let kI = 100
+  
+  let error = SETPOINT - arm_angle
+  accum_error += error
+  
+  let speed = k*error + kI*accum_error
+  
+  if(arm_angle > 2000){
+    arm_torque = 2000
+  }
+  if(arm_angle < -2000){
+    arm_torque = -2000
+  }
+  arm_torque = speed
+}
+
+function proportional_control(SETPOINT){
+  let k = 500
+  let error = SETPOINT - arm_angle
+  let speed = k*error
+  if(arm_angle > 2000){
+    arm_torque = 2000
+  }
+  if(arm_angle < -2000){
+    arm_torque = -2000
+  }
+  arm_torque = speed
+}
+
 function on_off_tolerance(SETPOINT){
   let weight_torque = ((ARM_MASS * 9.81 * ARM_LENGTH) / 2) * sin(arm_angle)
   
-  //idk if this is cheating
-  arm_velocity /= 2
 
   
   if(arm_angle <= SETPOINT - TOLERANCE ){
@@ -74,8 +107,6 @@ function on_off_tolerance(SETPOINT){
 function on_off(SETPOINT){
   let weight_torque = ((ARM_MASS * 9.81 * ARM_LENGTH) / 2) * sin(arm_angle)
   
-  //idk if this is cheating
-  arm_velocity /= 2
 
   
   if(arm_angle <= SETPOINT){
