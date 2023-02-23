@@ -45,8 +45,8 @@ function draw() {
  // arm_torque = SETPOINT*constant_point
   
   
-  //on_off(SETPOINT)
-  on_off_tolerance(SETPOINT)
+  on_off(SETPOINT)
+  //on_off_tolerance(SETPOINT)
   //proportional_control(SETPOINT)
   //proportional_Integral_control(SETPOINT)
   
