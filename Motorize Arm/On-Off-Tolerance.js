@@ -91,12 +91,12 @@ function proportional_control(SETPOINT){
 }
 
 function on_off_tolerance(SETPOINT){
-  let weight_torque = ((ARM_MASS * 9.81 * ARM_LENGTH) / 2) * sin(arm_angle)
+  //let weight_torque = ((ARM_MASS * 9.81 * ARM_LENGTH) / 2) * sin(arm_angle)
   
 
   
   if(arm_angle <= SETPOINT - TOLERANCE ){
-    arm_torque = (arm_torque * weight_torque)
+    arm_torque = 2000
     //console.log(arm_angle)
   }else{
     arm_torque = 0
@@ -105,12 +105,10 @@ function on_off_tolerance(SETPOINT){
 }
 
 function on_off(SETPOINT){
-  let weight_torque = ((ARM_MASS * 9.81 * ARM_LENGTH) / 2) * sin(arm_angle)
-  
-
+  //let weight_torque = ((ARM_MASS * 9.81 * ARM_LENGTH) / 2) * sin(arm_angle)
   
   if(arm_angle <= SETPOINT){
-    arm_torque = (arm_torque * weight_torque)
+    arm_torque = 2000
     //console.log(arm_angle)
   }else{
     arm_torque = 0
