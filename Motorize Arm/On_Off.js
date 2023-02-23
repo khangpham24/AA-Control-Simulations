@@ -28,7 +28,7 @@ function setup() {
 }
 
 let SETPOINT = 90;
-let MOTOR_TORQUE = 1200;
+let MOTOR_TORQUE = 1800;
 let TOLERANCE = 5;
 
 function draw() {
